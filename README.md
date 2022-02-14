@@ -22,13 +22,13 @@ docker run --name atm-service-mysql -v /home/ubuntu/Development/docker_data/atm_
 
 #### 1. Application Property Changes
 
-Update atm_user_service\src\main\resources\application.properties
+Update **atm_user_service\src\main\resources\application.properties**
 
 ```
 gateway.ip=192.168.1.110
 ```
 
-This should match the IP address of the machine that the atm_api_gateway_service will run on.
+This should match the IP address of the machine that the **atm_api_gateway_service** will run on.
 
 #### 2. Start-up application in following sequence
 
@@ -90,6 +90,8 @@ This should match the IP address of the machine that the atm_api_gateway_service
 - Add OAuth2 to support Authorization
 - Add Circuit Breaker
 - Dockerize all web applications
+
+<br />
 
 ### Other Notes
 
