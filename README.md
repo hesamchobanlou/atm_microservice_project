@@ -44,14 +44,14 @@ This should match the IP address of the machine that the **atm_api_gateway_servi
 
 <br />
 
-### Postman Collection
+### Import Postman Collection
 
 - Import postman_collection\ATM Service.postman_collection.json as a collection 
 - Import postman_collection\ATM Service.postman_environment.json as an environment
 
 <br />
 
-### Interacting with APIs with Postman
+### Interacting with APIs using Postman
 
 #### Gateway IP
 
