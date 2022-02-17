@@ -9,11 +9,13 @@
         <module name="atm_discovery_service" />
         <module name="atm_user_service" />
         <module name="atm_service" />
+        <module name="atm_config_server" />
         <module name="atm_api_gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="atm_api_gateway" target="11" />
+      <module name="atm_config_server" target="11" />
       <module name="atm_discovery_service" target="11" />
       <module name="atm_service" target="11" />
       <module name="atm_user_service" target="11" />
@@ -22,6 +24,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="atm_api_gateway" options="-parameters" />
+      <module name="atm_config_server" options="-parameters" />
       <module name="atm_discovery_service" options="-parameters" />
       <module name="atm_service" options="-parameters" />
       <module name="atm_user_service" options="-parameters" />

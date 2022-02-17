@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/atm_api_gateway/atm_api_gateway.iml" filepath="$PROJECT_DIR$/atm_api_gateway/atm_api_gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/atm_config_server/atm_config_server.iml" filepath="$PROJECT_DIR$/atm_config_server/atm_config_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/atm_discovery_service/atm_discovery_service.iml" filepath="$PROJECT_DIR$/atm_discovery_service/atm_discovery_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/atm_project.iml" filepath="$PROJECT_DIR$/atm_project.iml" />
       <module fileurl="file://$PROJECT_DIR$/atm_service/atm_service.iml" filepath="$PROJECT_DIR$/atm_service/atm_service.iml" />

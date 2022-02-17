@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/atm_api_gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atm_api_gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/atm_config_server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atm_discovery_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atm_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/atm_user_service/src/main/java" charset="UTF-8" />
