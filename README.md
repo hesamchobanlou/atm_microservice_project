@@ -26,10 +26,11 @@ gateway.ip=192.168.1.110
 This should match the IP address of the machine that the atm_api_gateway_service will run on.
 
 ### 2. Start-up application in following sequence
-    1. atm_discovery_service
-    2. atm_api_gateway_service
-    3. atm_user_service
-    4. atm_service
+    1. atm_config_server
+    2. atm_discovery_service
+    3. atm_api_gateway_service
+    4. atm_user_service
+    5. atm_service
 
 ### 3. Multiple instances of the following can be started, if required:
     - atm_api_gateway_service
