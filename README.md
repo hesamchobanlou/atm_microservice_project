@@ -17,13 +17,14 @@ docker run --name atm-service-mysql -v /home/ubuntu/Development/docker_data/atm_
 ## Starting Microservice Applications
 ### 1. Application Property Changes
 
-Update atm_user_service\src\main\resources\application.properties
+Update **atm_config_server/src/main/resources/config/atm_user_service/atm_user_service.properties**
 
 ```
 gateway.ip=192.168.1.110
 ```
-
 This should match the IP address of the machine that the atm_api_gateway_service will run on.
+
+You can repeat this for *[dev|prod].properties as well.
 
 ### 2. Start-up application in following sequence
     1. atm_config_server
