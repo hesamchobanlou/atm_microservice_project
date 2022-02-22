@@ -3,7 +3,9 @@ package com.example.atm_user_service.service;
 import com.example.atm_user_service.data.UserBankAccountEntity;
 import com.example.atm_user_service.data.UserEntity;
 import com.example.atm_user_service.data.UserRepository;
+import com.example.atm_user_service.model.UserEditRequest;
 import com.example.atm_user_service.shared.UserDto;
+import org.apache.logging.log4j.util.Strings;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,30 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findByUserId(userId);
 
         if (userEntity == null) throw new UsernameNotFoundException(userId);
+
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+
+        return userDto;
+    }
+
+    @Override
+    public UserDto changeUserName(String userId, UserEditRequest userEditRequest) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+
+        if (userEntity == null) throw new UsernameNotFoundException(userId);
+
+        if (userEditRequest.getFirstName() != null && Strings.isNotBlank(userEditRequest.getFirstName())) {
+            userEntity.setFirstName(userEditRequest.getFirstName());
+        }
+
+        if (userEditRequest.getLastName() != null && Strings.isNotBlank(userEditRequest.getLastName())) {
+            userEntity.setLastName(userEditRequest.getLastName());
+        }
+
+        userRepository.save(userEntity);
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

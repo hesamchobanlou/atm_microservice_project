@@ -1,9 +1,8 @@
 package com.example.atm_service.controller;
 
-import com.example.atm_service.model.UserBankAccount;
-import com.example.atm_service.model.UserBankAccountDepositRequest;
-import com.example.atm_service.model.UserBankAccountWithdrawRequest;
+import com.example.atm_service.model.*;
 import com.example.atm_service.service.UserBankAccountService;
+import com.example.atm_service.service.UserRestTemplateClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,9 @@ public class ATMController {
 
     @Autowired
     UserBankAccountService userBankAccountService;
+
+    @Autowired
+    UserRestTemplateClient userRestTemplateClient;
 
     @GetMapping(path="/balance")
     public ResponseEntity<UserBankAccount> bankAccountBalance(@PathVariable String userId) {
@@ -66,5 +69,13 @@ public class ATMController {
             } else {
                 return new ResponseEntity("{\"message\": \"Please provide an amount greater than 0\"}", HttpStatus.BAD_REQUEST);
             }
+    }
+
+    @RequestMapping(path="/profile/edit", method=RequestMethod.PUT)
+    public ResponseEntity<UserResponse> changeName(@PathVariable String userId,
+                                                   @RequestBody UserEditRequest userEditRequest) {
+        UserResponse userResponse = userRestTemplateClient.changeNameRequest(userId, userEditRequest);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse);
     }
 }
