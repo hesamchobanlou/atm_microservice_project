@@ -45,6 +45,6 @@ public class UserController {
 
         UserResponse userResponse = modelMapper.map(updatedUser, UserResponse.class);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse);
     }
 }

@@ -3,18 +3,13 @@ package com.example.atm_service.controller;
 import com.example.atm_service.model.*;
 import com.example.atm_service.service.UserBankAccountService;
 import com.example.atm_service.service.UserRestTemplateClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users/{userId}/atm")
@@ -26,6 +21,11 @@ public class ATMController {
     @Autowired
     UserRestTemplateClient userRestTemplateClient;
 
+    private static final String RESILIENCE4J_INSTANCE_NAME = "atm_service_circuit_breaker";
+//    private static final String FALLBACK_METHOD = "fallback";
+
+    @CircuitBreaker(name=RESILIENCE4J_INSTANCE_NAME)
+    @RateLimiter(name="atm_calls_limit")
     @GetMapping(path="/balance")
     public ResponseEntity<UserBankAccount> bankAccountBalance(@PathVariable String userId) {
         UserBankAccount userBankAccount = userBankAccountService.bankAccountBalance(userId);
@@ -37,6 +37,8 @@ public class ATMController {
         }
     }
 
+    @CircuitBreaker(name=RESILIENCE4J_INSTANCE_NAME)
+    @RateLimiter(name="atm_calls_limit")
     @PostMapping(path="/deposit")
     public ResponseEntity<UserBankAccount> bankAccountDeposit(@PathVariable String userId,
                                                               @RequestBody UserBankAccountDepositRequest userBankAccountDepositRequest) {
@@ -49,6 +51,8 @@ public class ATMController {
         }
     }
 
+    @CircuitBreaker(name=RESILIENCE4J_INSTANCE_NAME)
+    @RateLimiter(name="atm_calls_limit")
     @PostMapping(path="/withdraw", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserBankAccount> bankAccountWithdraw(@PathVariable String userId,
                                                                @RequestBody UserBankAccountWithdrawRequest userBankAccountWithdrawRequest) {
@@ -71,6 +75,8 @@ public class ATMController {
             }
     }
 
+    @CircuitBreaker(name=RESILIENCE4J_INSTANCE_NAME)
+    @RateLimiter(name="atm_calls_limit")
     @RequestMapping(path="/profile/edit", method=RequestMethod.PUT)
     public ResponseEntity<UserResponse> changeName(@PathVariable String userId,
                                                    @RequestBody UserEditRequest userEditRequest) {
@@ -78,4 +84,20 @@ public class ATMController {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse);
     }
+
+    @CircuitBreaker(name=RESILIENCE4J_INSTANCE_NAME)
+    @RequestMapping(path="/test_circuit_breaker", method=RequestMethod.GET)
+    public ResponseEntity testCircuitBreaker() {
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            // do nothing
+        }
+
+        return ResponseEntity.ok().body("");
+    }
+
+//    public ResponseEntity fallback() {
+//        return ResponseEntity.internalServerError().body("{\"message\": \"fallback method invoked\"}");
+//    }
 }
